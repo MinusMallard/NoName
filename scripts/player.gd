@@ -1,0 +1,142 @@
+extends CharacterBody2D
+
+@onready var anim = $AnimatedSprite2D
+
+# Movement parameters
+const speed = 100
+const roll_speed = 200
+var cooldown = 0
+
+# State tracking
+var rolling = false
+var roll_vector = Vector2.ZERO
+var current_animation = ""  # Current playing animation (used for roll)
+var current_idle = "idle_right"   # Default idle animation
+
+func _ready() -> void:
+	Engine.max_fps = 60
+
+func _physics_process(delta):
+	var input_dir = get_input_direction()  # Get raw input vector
+	var move_dir = Vector2.ZERO
+	
+	# If we're not in a cooldown (roll in progress)
+	if cooldown <= 0:
+		rolling = false
+		# If roll is triggered and there is directional input, start rolling
+		if Input.is_action_just_pressed("ui_select") and input_dir != Vector2.ZERO:
+			start_roll(input_dir)
+			move_dir = roll_vector
+		else:
+			# Normal walking movement
+			move_dir = input_dir
+			if move_dir != Vector2.ZERO:
+				var walk_anim = get_walk_animation(move_dir)
+				current_idle = get_idle_animation(move_dir)
+				if anim.animation != walk_anim:
+					anim.play(walk_anim)
+			else:
+				# Not moving: play idle animation (from last movement)
+				anim.play(current_idle)
+	else:
+		# During roll cooldown, continue moving in the roll direction
+		cooldown -= 1
+		move_dir = roll_vector
+		anim.play(current_animation)
+		# When cooldown expires, rolling is finished
+		if cooldown <= 0:
+			rolling = false
+	
+	# Set the velocity based on movement mode (roll or normal)
+	var current_speed = 0
+	if rolling:
+		current_speed = roll_speed
+	else:
+		current_speed = speed
+	velocity = move_dir.normalized() * current_speed
+	
+	move_and_slide()
+
+# Returns a Vector2 based on input actions.
+func get_input_direction() -> Vector2:
+	var dir = Vector2.ZERO
+	if Input.is_action_pressed("ui_right"):
+		dir.x += 1
+	if Input.is_action_pressed("ui_left"):
+		dir.x -= 1
+	if Input.is_action_pressed("ui_down"):
+		dir.y += 1
+	if Input.is_action_pressed("ui_up"):
+		dir.y -= 1
+	return dir
+
+# Returns the walk animation based on the movement direction.
+func get_walk_animation(direction: Vector2) -> String:
+	# Diagonals first
+	if direction.x > 0 and direction.y > 0:
+		return "walk_right_down"
+	elif direction.x > 0 and direction.y < 0:
+		return "walk_right_up"
+	elif direction.x < 0 and direction.y > 0:
+		return "walk_left_down"
+	elif direction.x < 0 and direction.y < 0:
+		return "walk_left_up"
+	# Cardinal directions
+	elif direction.x > 0:
+		return "walk_right"
+	elif direction.x < 0:
+		return "walk_left"
+	elif direction.y > 0:
+		return "walk_down"
+	elif direction.y < 0:
+		return "walk_up"
+	return "idle"
+
+# Returns the idle animation based on the last movement direction.
+func get_idle_animation(direction: Vector2) -> String:
+	if direction.x > 0 and direction.y > 0:
+		return "idle_right_down"
+	elif direction.x > 0 and direction.y < 0:
+		return "idle_right_up"
+	elif direction.x < 0 and direction.y > 0:
+		return "idle_left_down"
+	elif direction.x < 0 and direction.y < 0:
+		return "idle_left_up"
+	elif direction.x > 0:
+		return "idle_right"
+	elif direction.x < 0:
+		return "idle_left"
+	elif direction.y > 0:
+		return "idle_down"
+	else:
+		return "idle_up"
+	
+
+# Returns the roll animation name based on the roll direction.
+func get_roll_animation(direction: Vector2) -> String:
+	if direction.x > 0 and direction.y > 0:
+		return "roll_right_down"
+	elif direction.x > 0 and direction.y < 0:
+		return "roll_right_up"
+	elif direction.x < 0 and direction.y > 0:
+		return "roll_left_down"
+	elif direction.x < 0 and direction.y < 0:
+		return "roll_left_up"
+	elif direction.x > 0:
+		return "roll_right"
+	elif direction.x < 0:
+		return "roll_left"
+	elif direction.y > 0:
+		return "roll_down"
+	else:
+		return "roll_up"
+	  # fallback in case no direction is found
+
+# Initializes the roll action.
+func start_roll(direction: Vector2) -> void:
+	rolling = true
+	roll_vector = direction.normalized()
+	current_animation = get_roll_animation(direction)
+	current_idle = get_idle_animation(direction)
+	anim.play(current_animation)
+	cooldown = 60  # Duration of the roll in frames

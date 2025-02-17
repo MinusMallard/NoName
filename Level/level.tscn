@@ -1,0 +1,114 @@
+[gd_scene load_steps=15 format=3 uid="uid://bwxgociwfrmgs"]
+
+[ext_resource type="Texture2D" uid="uid://dv1k5pbgp0whq" path="res://Assets/Golbanc Homestead/Backgrounds/Grassland - Painted - green.png" id="1_adfn4"]
+[ext_resource type="Texture2D" uid="uid://5hw06ma6sbci" path="res://Assets/Golbanc Homestead/Flora/Trees Green - 2x2A.png" id="2_8ysts"]
+[ext_resource type="Texture2D" uid="uid://dhg0v5cxmchv0" path="res://Assets/Golbanc Homestead/Infrastructure/Dirt road 1 StraightB.png" id="3_jsc3l"]
+[ext_resource type="Texture2D" uid="uid://8oj1xfbqc762" path="res://Assets/Golbanc Homestead/Infrastructure/Dirt road 1 Tcross D.png" id="4_h3ne3"]
+[ext_resource type="Texture2D" uid="uid://bfoff720p0p57" path="res://Assets/Golbanc Homestead/Structures/Homestead Building Size 2 C-II-b.png" id="5_jdivx"]
+[ext_resource type="Texture2D" uid="uid://sjogulnc2v38" path="res://Assets/Golbanc Homestead/River-Coast/Waterway 1 - coast corner east.png" id="6_qeu15"]
+[ext_resource type="Texture2D" uid="uid://dj0vanpnt450u" path="res://Assets/Golbanc Homestead/River-Coast/Waterway 1 - coast corner north.png" id="7_urmca"]
+[ext_resource type="Texture2D" uid="uid://b5eyjttyeau4p" path="res://Assets/Golbanc Homestead/River-Coast/Waterway 1 - coast corner west.png" id="8_m26gy"]
+[ext_resource type="Texture2D" uid="uid://dkscc4mk7dom3" path="res://Assets/Golbanc Homestead/River-Coast/Waterway 1 - coast short 1A.png" id="9_ciy75"]
+[ext_resource type="Texture2D" uid="uid://6m30ivmk3751" path="res://Assets/Golbanc Homestead/River-Coast/Waterway 1 - long straight1.png" id="10_25dys"]
+[ext_resource type="Texture2D" uid="uid://dkphypjyyqghq" path="res://Assets/Golbanc Homestead/Remnants/Rubble 1x1 D.png" id="11_hm5el"]
+[ext_resource type="Texture2D" uid="uid://bs6455v1yn5h8" path="res://Assets/Golbanc Homestead/Infrastructure/Dirt road 1 rightcorner.png" id="12_vwsm2"]
+[ext_resource type="Texture2D" uid="uid://1k71terfn7d6" path="res://Assets/Golbanc Homestead/Infrastructure/Dirt road 1 leftcorner.png" id="13_ycdib"]
+[ext_resource type="Texture2D" uid="uid://cx82ia13n71jk" path="res://Assets/Golbanc Homestead/Flora/Trees Red - 3x3A.png" id="14_y5vn8"]
+
+[node name="Level" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 2
+
+[node name="Grassland-Painted-Green" type="Sprite2D" parent="."]
+position = Vector2(-332, 135)
+texture = ExtResource("1_adfn4")
+
+[node name="Grassland-Painted-Green2" type="Sprite2D" parent="."]
+position = Vector2(2259, -1333)
+texture = ExtResource("1_adfn4")
+
+[node name="Grassland-Painted-Green3" type="Sprite2D" parent="."]
+position = Vector2(4848, 153)
+texture = ExtResource("1_adfn4")
+
+[node name="Grassland-Painted-Green4" type="Sprite2D" parent="."]
+position = Vector2(2259, 1626)
+texture = ExtResource("1_adfn4")
+
+[node name="TreesGreen-2x2a" type="Sprite2D" parent="."]
+position = Vector2(1029, 741)
+texture = ExtResource("2_8ysts")
+
+[node name="TreesGreen-2x2a2" type="Sprite2D" parent="."]
+top_level = true
+position = Vector2(710, 973)
+texture = ExtResource("2_8ysts")
+
+[node name="DirtRoad1StraightB" type="Sprite2D" parent="."]
+position = Vector2(958, 964)
+texture = ExtResource("3_jsc3l")
+
+[node name="DirtRoad1StraightB2" type="Sprite2D" parent="."]
+position = Vector2(1382, 1214)
+texture = ExtResource("3_jsc3l")
+
+[node name="DirtRoad1TcrossD" type="Sprite2D" parent="."]
+position = Vector2(1808, 1464)
+texture = ExtResource("4_h3ne3")
+
+[node name="HomesteadBuildingSize2C-ii-b" type="Sprite2D" parent="."]
+position = Vector2(1210, 874)
+texture = ExtResource("5_jdivx")
+
+[node name="HomesteadBuildingSize2C-ii-b2" type="Sprite2D" parent="."]
+position = Vector2(1391, 974)
+texture = ExtResource("5_jdivx")
+
+[node name="Waterway1-CoastCornerEast" type="Sprite2D" parent="."]
+position = Vector2(-600, 497)
+texture = ExtResource("6_qeu15")
+
+[node name="Waterway1-CoastCornerNorth" type="Sprite2D" parent="."]
+position = Vector2(-849, 351)
+texture = ExtResource("7_urmca")
+
+[node name="Waterway1-CoastCornerWest" type="Sprite2D" parent="."]
+position = Vector2(-1091, 500)
+texture = ExtResource("8_m26gy")
+
+[node name="Waterway1-CoastShort1a" type="Sprite2D" parent="."]
+position = Vector2(-842, 657)
+texture = ExtResource("9_ciy75")
+
+[node name="Waterway1-LongStraight1" type="Sprite2D" parent="."]
+position = Vector2(-1220, 867)
+texture = ExtResource("10_25dys")
+
+[node name="Rubble1x1D" type="Sprite2D" parent="."]
+position = Vector2(-364, 579)
+texture = ExtResource("11_hm5el")
+
+[node name="DirtRoad1StraightB3" type="Sprite2D" parent="."]
+position = Vector2(599, 742)
+texture = ExtResource("3_jsc3l")
+
+[node name="DirtRoad1StraightB4" type="Sprite2D" parent="."]
+position = Vector2(192, 504)
+texture = ExtResource("3_jsc3l")
+
+[node name="DirtRoad1Rightcorner" type="Sprite2D" parent="."]
+position = Vector2(-230, 258)
+texture = ExtResource("12_vwsm2")
+
+[node name="DirtRoad1Leftcorner" type="Sprite2D" parent="."]
+position = Vector2(176, 13)
+texture = ExtResource("13_ycdib")
+
+[node name="TreesRed-3x3a" type="Sprite2D" parent="."]
+position = Vector2(-1154, 114)
+texture = ExtResource("14_y5vn8")
+
+[node name="TreesRed-3x3a2" type="Sprite2D" parent="."]
+position = Vector2(-1426, 285)
+texture = ExtResource("14_y5vn8")
