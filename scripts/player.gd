@@ -2,9 +2,13 @@ extends CharacterBody2D
 
 @onready var anim = $AnimatedSprite2D
 
+
+var health = 100
+
 # Movement parameters
 const speed = 100
 const roll_speed = 200
+const run_speed = 200
 var cooldown = 0
 
 # State tracking
@@ -13,6 +17,9 @@ var roll_vector = Vector2.ZERO
 var current_animation = ""  # Current playing animation (used for roll)
 var current_idle = "idle_right"   # Default idle animation
 
+
+var jump_buffer = []  # Stack to store jump timestamps
+
 func _ready() -> void:
 	Engine.max_fps = 60
 
@@ -20,11 +27,20 @@ func _physics_process(delta):
 	var input_dir = get_input_direction()  # Get raw input vector
 	var move_dir = Vector2.ZERO
 	
+	
+	
 	# If we're not in a cooldown (roll in progress)
 	if cooldown <= 0:
 		rolling = false
+		
+		var current_time = Time.get_ticks_msec()
+		while jump_buffer.size() > 0 and current_time-jump_buffer[0] >= 400:
+			var x = jump_buffer.pop_front()
+			print("deleted")
+			print(x)
 		# If roll is triggered and there is directional input, start rolling
-		if Input.is_action_just_pressed("ui_select") and input_dir != Vector2.ZERO:
+		if (Input.is_action_just_pressed("ui_select") or jump_buffer.size() > 0) and input_dir != Vector2.ZERO:
+			jump_buffer.pop_back()
 			start_roll(input_dir)
 			move_dir = roll_vector
 		else:
@@ -46,6 +62,10 @@ func _physics_process(delta):
 		# When cooldown expires, rolling is finished
 		if cooldown <= 0:
 			rolling = false
+			
+	if Input.is_action_just_pressed("ui_select"):
+		jump_buffer.append(Time.get_ticks_msec())
+		print(jump_buffer[0])
 	
 	# Set the velocity based on movement mode (roll or normal)
 	var current_speed = 0
@@ -53,7 +73,15 @@ func _physics_process(delta):
 		current_speed = roll_speed
 	else:
 		current_speed = speed
+	
+		
+	if Input.is_action_pressed("shift"):
+		current_speed = run_speed
+	else:
+		current_speed = speed
 	velocity = move_dir.normalized() * current_speed
+	
+	
 	
 	move_and_slide()
 
@@ -74,22 +102,45 @@ func get_input_direction() -> Vector2:
 func get_walk_animation(direction: Vector2) -> String:
 	# Diagonals first
 	if direction.x > 0 and direction.y > 0:
-		return "walk_right_down"
+		if Input.is_action_pressed("shift"):
+			return "run_right_down"
+		else:
+			return "walk_right_down"
 	elif direction.x > 0 and direction.y < 0:
-		return "walk_right_up"
+		if Input.is_action_pressed("shift"):
+			return "run_right_up"
+		else:
+			return "walk_right_up"
 	elif direction.x < 0 and direction.y > 0:
-		return "walk_left_down"
+		if Input.is_action_pressed("shift"):
+			return "run_left_down"
+		else: 
+			return "walk_left_down"
 	elif direction.x < 0 and direction.y < 0:
-		return "walk_left_up"
-	# Cardinal directions
+		if Input.is_action_pressed("shift"):
+			return "run_left_up"
+		else:
+			return "walk_left_up"
 	elif direction.x > 0:
-		return "walk_right"
+		if Input.is_action_pressed("shift"):
+			return "run_right"
+		else:
+			return "walk_right"
 	elif direction.x < 0:
-		return "walk_left"
+		if Input.is_action_pressed("shift"):
+			return "run_left"
+		else:
+			return "walk_left"
 	elif direction.y > 0:
-		return "walk_down"
+		if Input.is_action_pressed("shift"):
+			return "run_down"
+		else:
+			return "walk_down"
 	elif direction.y < 0:
-		return "walk_up"
+		if Input.is_action_pressed("shift"):
+			return "run_up"
+		else:
+			return "walk_up"
 	return "idle"
 
 # Returns the idle animation based on the last movement direction.
@@ -108,8 +159,9 @@ func get_idle_animation(direction: Vector2) -> String:
 		return "idle_left"
 	elif direction.y > 0:
 		return "idle_down"
-	else:
+	elif direction.y < 0:
 		return "idle_up"
+	return "idle_up"
 	
 
 # Returns the roll animation name based on the roll direction.
@@ -139,4 +191,4 @@ func start_roll(direction: Vector2) -> void:
 	current_animation = get_roll_animation(direction)
 	current_idle = get_idle_animation(direction)
 	anim.play(current_animation)
-	cooldown = 60  # Duration of the roll in frames
+	cooldown = 60 # Duration of the roll in frames

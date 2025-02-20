@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://donlavoy6irh8"]
+
+[ext_resource type="Texture2D" uid="uid://cr6hauqeqkb6o" path="res://Assets/Golbanc Homestead/Flora/Temperate Trees v2 size-2 A red.png" id="1_ohpiw"]
+
+[node name="PinkTree" type="StaticBody2D"]
+y_sort_enabled = true
+
+[node name="TemperateTreesV2Size-2ARed" type="Sprite2D" parent="."]
+position = Vector2(6, 49)
+scale = Vector2(0.983333, 0.992593)
+texture = ExtResource("1_ohpiw")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(37, 67)
+scale = Vector2(4.85, 7.15)
+polygon = PackedVector2Array(-6.28866, 11.1189, -6.08247, 11.1189, -33.0928, 20.7692, -27.732, 25.3846, -13.7113, 29.7203, 0.103093, 31.1189, 18.2474, 28.8811, 24.2268, 27.0629, 28.3505, 22.028, 24.8454, 19.0909, 29.5876, 17.2727, 30, 14.0559, 29.1753, 10.8392, 24.2268, 10.6993, 17.2165, 10.4196, 14.3299, 9.72028, 11.4433, 10.1399, 3.81443, 7.34266, -1.75258, 6.78322, -10.5155, 6.2937, -18.1443, 6.43357, -26.4948, 7.48252, -35.567, 10.6993, -39.4845, 13.2168, -39.2784, 15.7343, -37.4227, 20.4895, -35.7732, 21.7482)
