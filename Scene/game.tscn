@@ -5,12 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://clptk7fjs4nuf" path="res://Scene/canvas_layer.tscn" id="3_l6sws"]
 
 [node name="Game" type="Node2D"]
+y_sort_enabled = true
 
 [node name="Level" parent="." instance=ExtResource("1_ihqbn")]
-position = Vector2(-4133, -2104)
+position = Vector2(-3502, -2427)
 
 [node name="player" parent="." instance=ExtResource("2_u53ci")]
-position = Vector2(-770, -374)
+y_sort_enabled = true
+position = Vector2(-3343, -2170)
 
 [node name="CanvasLayer" parent="." instance=ExtResource("3_l6sws")]
 player_path = NodePath("../player")

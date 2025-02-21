@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://deb4ok6gbv64u"]
+
+[ext_resource type="Texture2D" uid="uid://b2o41oeicsrer" path="res://Assets/Golbanc Homestead/Flora/Temperate Trees v2 size-2 B red.png" id="1_t5f5i"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ojbkc"]
+texture = ExtResource("1_t5f5i")
+0:5/size_in_atlas = Vector2i(33, 28)
+0:5/0 = 0
+0:5/0/y_sort_origin = 100
+0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-130.5, 88, -114.5, 57, -65.5, 42, 16.5, 24, 84.5, 45, 147.5, 64, 166.5, 90, 109.5, 161, 36.5, 192, -21.5, 188, -65.5, 164, -103.5, 143, -124.5, 133, -120.5, 117, -136.5, 108)
+
+[sub_resource type="TileSet" id="TileSet_hcdtu"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_ojbkc")
+
+[node name="CherryTree" type="TileMapLayer"]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 250, 255, 0, 0, 3, 0, 3, 0, 0, 0, 254, 255, 248, 255, 0, 0, 5, 0, 6, 0, 0, 0, 255, 255, 249, 255, 0, 0, 0, 0, 5, 0, 0, 0)
+tile_set = SubResource("TileSet_hcdtu")

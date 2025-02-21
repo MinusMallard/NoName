@@ -4411,8 +4411,7 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0g6dl"]
-radius = 9.0
-height = 18.0
+radius = 15.0
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_cudne")
@@ -4422,10 +4421,11 @@ position = Vector2(6, 7)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_wvlyi")
 animation = &"attack1_down"
-frame_progress = 0.259025
+frame_progress = 0.305448
+offset = Vector2(-5, -30)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(7, 41)
+position = Vector2(1, 8)
 shape = SubResource("CapsuleShape2D_0g6dl")
 
 [node name="Camera2D2" type="Camera2D" parent="."]
@@ -4435,21 +4435,18 @@ position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 
 [node name="attack_area" type="Area2D" parent="."]
-position = Vector2(29, 47)
+position = Vector2(26, 12)
 
 [node name="attack_down" type="CollisionPolygon2D" parent="attack_area"]
 polygon = PackedVector2Array(13, -42, 43, -49, 46, -30, 42, -11, 31, 2, 13, 14, -8, 16, -25, 16, -54, 12, -52, -3, -45, -15, -38, -17, -24, -15, -6, -15, 5, -18, 13, -19, 15, -30)
 
 [node name="attack_left" type="CollisionPolygon2D" parent="attack_area"]
-visible = false
 polygon = PackedVector2Array(-71, -57, -83, -57, -84, -36, -76, -11, -48, 16, -24, 20, 4, 13, -7, -6, -17, -15, -34, -14, -45, -21, -46, -39, -60, -54, -65, -56)
 
 [node name="attack_left_down" type="CollisionPolygon2D" parent="attack_area"]
-visible = false
 polygon = PackedVector2Array(-88, -24, -66, -28, -39, -28, -34, -17, -14, -10, 4, -17, 13, -24, 30, -16, 40, -10, 35, 0, 25, 9, 14, 14, -4, 20, -24, 20, -56, 10, -72, -1, -84, -10, -89, -26)
 
 [node name="attack_left_up" type="CollisionPolygon2D" parent="attack_area"]
-visible = false
 polygon = PackedVector2Array(-44, -80, -33, -66, -30, -51, -33, -39, -40, -31, -41, -15, -43, -2, -53, 11, -63, 6, -73, -8, -75, -29, -65, -55, -48, -74, -45, -82, -45, -85)
 
 [node name="attack_right" type="CollisionPolygon2D" parent="attack_area"]

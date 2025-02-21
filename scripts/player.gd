@@ -6,7 +6,7 @@ var health = 100
 
 # Movement parameters
 const speed = 100
-const roll_speed = 600
+const roll_speed = 300
 const run_speed = 300
 var cooldown = 0
 
