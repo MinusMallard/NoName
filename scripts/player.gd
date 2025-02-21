@@ -2,23 +2,22 @@ extends CharacterBody2D
 
 @onready var anim = $AnimatedSprite2D
 
-
 var health = 100
 
 # Movement parameters
 const speed = 100
-const roll_speed = 200
-const run_speed = 200
+const roll_speed = 600
+const run_speed = 300
 var cooldown = 0
 
 # State tracking
 var rolling = false
 var roll_vector = Vector2.ZERO
+var jump_buffer = []  # Stack to store jump timestamps
+var attacking = false
+var attack_buffer = []
 var current_animation = ""  # Current playing animation (used for roll)
 var current_idle = "idle_right"   # Default idle animation
-
-
-var jump_buffer = []  # Stack to store jump timestamps
 
 func _ready() -> void:
 	Engine.max_fps = 60
@@ -28,19 +27,32 @@ func _physics_process(delta):
 	var move_dir = Vector2.ZERO
 	
 	
-	
 	# If we're not in a cooldown (roll in progress)
 	if cooldown <= 0:
 		rolling = false
+		attacking = false
 		
 		var current_time = Time.get_ticks_msec()
 		while jump_buffer.size() > 0 and current_time-jump_buffer[0] >= 400:
 			var x = jump_buffer.pop_front()
 			print("deleted")
 			print(x)
+		
+		if (Input.is_action_just_pressed("attack") or attack_buffer.size() > 0):
+			move_dir = Vector2.ZERO
+			attack_buffer.pop_back()
+			start_attack(current_idle)
 		# If roll is triggered and there is directional input, start rolling
-		if (Input.is_action_just_pressed("ui_select") or jump_buffer.size() > 0) and input_dir != Vector2.ZERO:
+		elif (Input.is_action_just_pressed("ui_select") or jump_buffer.size() > 0) and input_dir != Vector2.ZERO:
 			jump_buffer.pop_back()
+			if input_dir.x < 0:
+				input_dir.x -= 5
+			if input_dir.x > 0:
+				input_dir.x += 5
+			if input_dir.y < 0:
+				input_dir.y -= 5
+			if input_dir.y > 0:
+				input_dir.y += 5
 			start_roll(input_dir)
 			move_dir = roll_vector
 		else:
@@ -62,6 +74,7 @@ func _physics_process(delta):
 		# When cooldown expires, rolling is finished
 		if cooldown <= 0:
 			rolling = false
+			attacking = false
 			
 	if Input.is_action_just_pressed("ui_select"):
 		jump_buffer.append(Time.get_ticks_msec())
@@ -79,11 +92,11 @@ func _physics_process(delta):
 		current_speed = run_speed
 	else:
 		current_speed = speed
+		
 	velocity = move_dir.normalized() * current_speed
 	
-	
-	
-	move_and_slide()
+	if (!attacking):
+		move_and_slide()
 
 # Returns a Vector2 based on input actions.
 func get_input_direction() -> Vector2:
@@ -183,6 +196,23 @@ func get_roll_animation(direction: Vector2) -> String:
 	else:
 		return "roll_up"
 	  # fallback in case no direction is found
+func get_attack_animation(direction: String) -> String:
+	if direction == "idle_right_down":
+		return "attack1_right_down"
+	elif direction == "idle_right_up":
+		return "attack1_right_up"
+	elif direction == "idle_left_down":
+		return "attack1_left_down"
+	elif direction == "idle_left_up":
+		return "attack1_left_up"
+	elif direction == "idle_right":
+		return "attack1_right"
+	elif direction == "idle_left":
+		return "attack1_left"
+	elif direction == "idle_down":
+		return "attack1_down"
+	else:
+		return "attack1_up"
 
 # Initializes the roll action.
 func start_roll(direction: Vector2) -> void:
@@ -191,4 +221,10 @@ func start_roll(direction: Vector2) -> void:
 	current_animation = get_roll_animation(direction)
 	current_idle = get_idle_animation(direction)
 	anim.play(current_animation)
-	cooldown = 60 # Duration of the roll in frames
+	cooldown = 30 # Duration of the roll in frames
+	
+func start_attack(direction: String) -> void:
+	attacking = true
+	current_animation = get_attack_animation(direction)
+	anim.play(current_animation)
+	cooldown = 30 # Duration of attack in frames
