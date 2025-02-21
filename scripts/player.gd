@@ -22,7 +22,7 @@ var current_idle = "idle_right"   # Default idle animation
 func _ready() -> void:
 	Engine.max_fps = 60
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var input_dir = get_input_direction()  # Get raw input vector
 	var move_dir = Vector2.ZERO
 	
