@@ -45,14 +45,6 @@ func _physics_process(delta):
 		# If roll is triggered and there is directional input, start rolling
 		elif (Input.is_action_just_pressed("ui_select") or jump_buffer.size() > 0) and input_dir != Vector2.ZERO:
 			jump_buffer.pop_back()
-			if input_dir.x < 0:
-				input_dir.x -= 5
-			if input_dir.x > 0:
-				input_dir.x += 5
-			if input_dir.y < 0:
-				input_dir.y -= 5
-			if input_dir.y > 0:
-				input_dir.y += 5
 			start_roll(input_dir)
 			move_dir = roll_vector
 		else:
@@ -82,6 +74,7 @@ func _physics_process(delta):
 	
 	# Set the velocity based on movement mode (roll or normal)
 	var current_speed = 0
+	
 	if rolling:
 		current_speed = roll_speed
 	else:
@@ -90,8 +83,6 @@ func _physics_process(delta):
 		
 	if Input.is_action_pressed("shift"):
 		current_speed = run_speed
-	else:
-		current_speed = speed
 		
 	velocity = move_dir.normalized() * current_speed
 	
