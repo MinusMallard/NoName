@@ -14,5 +14,6 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_ojbkc")
 
 [node name="CherryTree" type="TileMapLayer"]
+y_sort_enabled = true
 tile_map_data = PackedByteArray(0, 0, 0, 0, 250, 255, 0, 0, 3, 0, 3, 0, 0, 0, 254, 255, 248, 255, 0, 0, 5, 0, 6, 0, 0, 0, 255, 255, 249, 255, 0, 0, 0, 0, 5, 0, 0, 0)
 tile_set = SubResource("TileSet_hcdtu")

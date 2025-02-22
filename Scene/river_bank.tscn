@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cslgueqn5wr0k"]
+
+[ext_resource type="Texture2D" uid="uid://dj0vanpnt450u" path="res://Assets/Golbanc Homestead/River-Coast/Waterway 1 - coast corner north.png" id="1_2m220"]
+
+[node name="river_bank" type="StaticBody2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-357, -359, -313, -351, -264, -349, -221, -344, -198, -332, -176, -328, -163, -338, -162, -353, -153, -378, -127, -376, -101, -365, -72, -362, -58, -352, -32, -339, -26, -358, -1, -360, 15, -350, 33, -324, 40, -301, 69, -295, 90, -292, 102, -291, 122, -279, 147, -253, 165, -239, 183, -224, 210, -196, 221, -180, 210, -174, 197, -167, 198, -147, 210, -134, 222, -127, 234, -124, 255, -116, 272, -92, 278, -81, 298, -36, 283, -45, 265, -43, 260, -37, 279, -22, 290, -16, 307, -5, 312, 10, 300, 15, 307, 33, 303, 47, 271, 54, 238, 53, 199, 49, 163, 49, 103, 49, 49, 49, -139, 49, -328, -302, -352, -309, -368, -318, -371, -343)
+
+[node name="Waterway1-CoastCornerNorth" type="Sprite2D" parent="."]
+position = Vector2(-30.0945, -134)
+rotation = 0.531686
+scale = Vector2(1.42103, 1.43781)
+texture = ExtResource("1_2m220")

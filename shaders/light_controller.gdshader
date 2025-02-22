@@ -5,7 +5,7 @@ uniform vec2 player_position;
 // Radius settings in pixels
 uniform float glow_radius;
 uniform float inner_radius;
-uniform float player_health = 1.0;
+uniform float player_health = 0.96;
 
 // Pulsation settings for the dynamic (moving) boundary:
 uniform float pulsation_amplitude = 50.0; // How many pixels the boundary moves in/out

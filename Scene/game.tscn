@@ -9,14 +9,14 @@
 y_sort_enabled = true
 
 [node name="Level" parent="." instance=ExtResource("1_ihqbn")]
-position = Vector2(-3502, -2427)
+position = Vector2(3343, -284)
 
 [node name="player" parent="." instance=ExtResource("2_u53ci")]
 y_sort_enabled = true
-position = Vector2(-3343, -2170)
+position = Vector2(-1781, 2317)
 
 [node name="CanvasLayer" parent="." instance=ExtResource("3_l6sws")]
 player_path = NodePath("../player")
 
 [node name="Artoriax" parent="." instance=ExtResource("4_lrfxt")]
-position = Vector2(-3165, -2169)
+position = Vector2(3343, 10)

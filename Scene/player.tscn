@@ -4411,7 +4411,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0g6dl"]
-radius = 15.0
+radius = 11.0
+height = 24.0
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_cudne")
@@ -4420,21 +4421,21 @@ script = ExtResource("1_cudne")
 position = Vector2(6, 7)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_wvlyi")
-animation = &"attack1_left_down"
-frame_progress = 0.642597
+animation = &"roll_down"
 offset = Vector2(-5, -30)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 8)
+position = Vector2(3, -1)
 shape = SubResource("CapsuleShape2D_0g6dl")
 
 [node name="Camera2D2" type="Camera2D" parent="."]
-position = Vector2(6, 12)
-zoom = Vector2(2, 2)
+visible = false
+position = Vector2(23, -126)
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 
 [node name="attack_area" type="Area2D" parent="."]
+visible = false
 position = Vector2(26, 12)
 
 [node name="attack_down" type="CollisionPolygon2D" parent="attack_area"]

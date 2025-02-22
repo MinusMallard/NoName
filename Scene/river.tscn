@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3f2jhp3vqbve"]
+
+[ext_resource type="Texture2D" uid="uid://bt5m2mowqtfcb" path="res://Assets/Golbanc Homestead/River-Coast/Waterway 1 - coast long 1A.png" id="1_jycsr"]
+
+[node name="river" type="StaticBody2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-490, -338, -459, -334, -430, -323, -398, -306, -379, -304, -347, -310, -333, -320, -314, -323, -288, -335, -255, -327, -221, -325, -183, -331, -167, -347, -184, -401, -201, -427, -174, -451, -150, -460, -96, -453, -64, -439, -19, -425, 27, -430, 71, -417, 104, -395, 146, -376, 192, -336, 218, -321, 245, -328, 276, -328, 302, -286, 313, -258, 348, -190, 477, 39, -296, 25, -498, -329)
+
+[node name="Waterway1-CoastLong1a" type="Sprite2D" parent="."]
+position = Vector2(11, -139)
+rotation = 0.534211
+scale = Vector2(1.31331, 1.26652)
+texture = ExtResource("1_jycsr")

@@ -5,8 +5,8 @@ extends CanvasLayer
 @onready var player = get_node(player_path)
 
 # Shader parameters for the transparent circle effect
-@export var glow_radius: float = 1100.0
-@export var inner_radius: float = 100.0
+@export var glow_radius: float = 850.0
+@export var inner_radius: float = 1.0
 
 # Shader material instance
 var glow_material: ShaderMaterial
