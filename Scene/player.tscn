@@ -4420,8 +4420,8 @@ script = ExtResource("1_cudne")
 position = Vector2(6, 7)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_wvlyi")
-animation = &"attack1_down"
-frame_progress = 0.305448
+animation = &"attack1_left_down"
+frame_progress = 0.642597
 offset = Vector2(-5, -30)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -4450,17 +4450,13 @@ polygon = PackedVector2Array(-88, -24, -66, -28, -39, -28, -34, -17, -14, -10, 4
 polygon = PackedVector2Array(-44, -80, -33, -66, -30, -51, -33, -39, -40, -31, -41, -15, -43, -2, -53, 11, -63, 6, -73, -8, -75, -29, -65, -55, -48, -74, -45, -82, -45, -85)
 
 [node name="attack_right" type="CollisionPolygon2D" parent="attack_area"]
-visible = false
 polygon = PackedVector2Array(-50, -79, -45, -68, -37, -54, -33, -44, -21, -49, -11, -48, -1, -38, -1, -28, -4, -23, 17, -13, 25, -25, 18, -13, 40, -35, 29, -52, 10, -63, -11, -72, -31, -76)
 
 [node name="attack_right_down" type="CollisionPolygon2D" parent="attack_area"]
-visible = false
 polygon = PackedVector2Array(3, -79, -2, -69, -9, -55, -12, -51, 5, -37, 8, -26, 5, -19, -6, -13, 1, 1, 8, 8, 17, 7, 31, -3, 38, -10, 42, -22, 42, -35, 38, -50, 28, -61, 20, -68, 10, -75)
 
 [node name="attack_right_up" type="CollisionPolygon2D" parent="attack_area"]
-visible = false
 polygon = PackedVector2Array(-87, -52, -69, -47, -49, -41, -37, -38, -29, -46, -11, -43, -9, -40, 4, -39, 24, -40, 24, -40, 42, -44, 33, -51, 22, -56, 6, -64, -8, -65, -26, -65, -41, -65, -48, -64)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="attack_area"]
-visible = false
 polygon = PackedVector2Array(-85, -14, -70, -20, -56, -23, -42, -27, -33, -28, -27, -33, -18, -41, -6, -54, 2, -61, 6, -66, 12, -74, 1, -74, -17, -71, -30, -69, -42, -65, -56, -58, -67, -48, -75, -39, -86, -26)

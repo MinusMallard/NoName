@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bwxgociwfrmgs"]
 
-[ext_resource type="Script" path="res://Level/level.gd" id="1_360qh"]
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_360qh"]
 [ext_resource type="Texture2D" uid="uid://dv1k5pbgp0whq" path="res://Assets/Golbanc Homestead/Backgrounds/Grassland - Painted - green.png" id="1_adfn4"]
 [ext_resource type="PackedScene" uid="uid://deb4ok6gbv64u" path="res://Scene/cherry_tree.tscn" id="3_ylkjm"]
 
