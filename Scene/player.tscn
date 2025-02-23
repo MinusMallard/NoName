@@ -4421,7 +4421,8 @@ script = ExtResource("1_cudne")
 position = Vector2(6, 7)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_wvlyi")
-animation = &"roll_down"
+animation = &"attack1_left_down"
+frame_progress = 0.68639
 offset = Vector2(-5, -30)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

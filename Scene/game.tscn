@@ -13,10 +13,10 @@ position = Vector2(3343, -284)
 
 [node name="player" parent="." instance=ExtResource("2_u53ci")]
 y_sort_enabled = true
-position = Vector2(-1781, 2317)
+position = Vector2(-1629, 2393)
 
 [node name="CanvasLayer" parent="." instance=ExtResource("3_l6sws")]
 player_path = NodePath("../player")
 
 [node name="Artoriax" parent="." instance=ExtResource("4_lrfxt")]
-position = Vector2(3343, 10)
+position = Vector2(-1338, 2348)
