@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5xq6kquulabn"
-path="res://.godot/imported/LifeBarMiniUnder.png-35c1d72fa0dea3812b727e69aa689167.ctex"
+uid="uid://c2jvylrhousoj"
+path="res://.godot/imported/5.webp-acb8399241ac419e5e9748266c89ffc9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://LifeBarMiniUnder.png"
-dest_files=["res://.godot/imported/LifeBarMiniUnder.png-35c1d72fa0dea3812b727e69aa689167.ctex"]
+source_file="res://Assets/5.webp"
+dest_files=["res://.godot/imported/5.webp-acb8399241ac419e5e9748266c89ffc9.ctex"]
 
 [params]
 

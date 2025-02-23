@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwpttx8qdd7k4"
-path="res://.godot/imported/OIP.jpg-4c33fd4baa18e7313ecd31ebec956739.ctex"
+uid="uid://b5xq6kquulabn"
+path="res://.godot/imported/LifeBarMiniUnder.png-6c53ae79146fb46a7cf0b537badab7ea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://OIP.jpg"
-dest_files=["res://.godot/imported/OIP.jpg-4c33fd4baa18e7313ecd31ebec956739.ctex"]
+source_file="res://Assets/LifeBarMiniUnder.png"
+dest_files=["res://.godot/imported/LifeBarMiniUnder.png-6c53ae79146fb46a7cf0b537badab7ea.ctex"]
 
 [params]
 
