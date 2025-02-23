@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2vl71wgtpl62"]
+
+[ext_resource type="Script" path="res://Scripts/title_screen.gd" id="1_d161k"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d161k")
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 0
+offset_left = 287.0
+offset_top = 109.0
+offset_right = 872.0
+offset_bottom = 205.0
+text = "What, Could Go Wrong?? Start
+"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 188.0
+offset_top = 235.0
+offset_right = 953.0
+offset_bottom = 326.0
+text = "Nah, I'm too afraid !!! Quit
+"
+
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://blmh8qhib2ns"
+path="res://.godot/imported/16  Juno Reactor Vs. Don Davis - Navras.mp3-b8ba2e924ec41a44d5d274001f018f8d.mp3str"
+
+[deps]
+
+source_file="res://16  Juno Reactor Vs. Don Davis - Navras.mp3"
+dest_files=["res://.godot/imported/16  Juno Reactor Vs. Don Davis - Navras.mp3-b8ba2e924ec41a44d5d274001f018f8d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

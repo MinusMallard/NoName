@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 @onready var anim = $AnimatedSprite2D
-
 var health = 100
+var stamina = 100
 
 # Movement parameters
 const speed = 100
@@ -38,17 +38,22 @@ func _physics_process(_delta):
 			print("deleted")
 			print(x)
 		
-		if (Input.is_action_just_pressed("attack") or attack_buffer.size() > 0):
+		if (Input.is_action_just_pressed("attack") or attack_buffer.size() > 0) and stamina >= 33:
+			stamina = stamina-25
 			move_dir = Vector2.ZERO
 			attack_buffer.pop_back()
 			start_attack(current_idle)
 		# If roll is triggered and there is directional input, start rolling
-		elif (Input.is_action_just_pressed("ui_select") or jump_buffer.size() > 0) and input_dir != Vector2.ZERO:
+		elif ((Input.is_action_just_pressed("ui_select") or jump_buffer.size() > 0) and input_dir != Vector2.ZERO) and stamina >= 33:
+			stamina = stamina-25
 			jump_buffer.pop_back()
 			start_roll(input_dir)
 			move_dir = roll_vector
 		else:
 			# Normal walking movement
+			if !Input.is_action_pressed("shift"):
+				stamina = min(100, stamina+1)
+			
 			move_dir = input_dir
 			if move_dir != Vector2.ZERO:
 				var walk_anim = get_walk_animation(move_dir)
@@ -81,8 +86,11 @@ func _physics_process(_delta):
 		current_speed = speed
 	
 		
-	if Input.is_action_pressed("shift"):
+	if Input.is_action_pressed("shift") and stamina > 2:
+		stamina = max(0, stamina-0.2)
 		current_speed = run_speed
+	else:
+		current_speed = speed  # Ensure the player slows down when stamina runs out
 		
 	velocity = move_dir.normalized() * current_speed
 	
@@ -106,42 +114,42 @@ func get_input_direction() -> Vector2:
 func get_walk_animation(direction: Vector2) -> String:
 	# Diagonals first
 	if direction.x > 0 and direction.y > 0:
-		if Input.is_action_pressed("shift"):
+		if Input.is_action_pressed("shift") and stamina > 2:
 			return "run_right_down"
 		else:
 			return "walk_right_down"
 	elif direction.x > 0 and direction.y < 0:
-		if Input.is_action_pressed("shift"):
+		if Input.is_action_pressed("shift") and stamina > 2:
 			return "run_right_up"
 		else:
 			return "walk_right_up"
 	elif direction.x < 0 and direction.y > 0:
-		if Input.is_action_pressed("shift"):
+		if Input.is_action_pressed("shift") and stamina > 2:
 			return "run_left_down"
 		else: 
 			return "walk_left_down"
 	elif direction.x < 0 and direction.y < 0:
-		if Input.is_action_pressed("shift"):
+		if Input.is_action_pressed("shift") and stamina > 2:
 			return "run_left_up"
 		else:
 			return "walk_left_up"
 	elif direction.x > 0:
-		if Input.is_action_pressed("shift"):
+		if Input.is_action_pressed("shift") and stamina > 2:
 			return "run_right"
 		else:
 			return "walk_right"
 	elif direction.x < 0:
-		if Input.is_action_pressed("shift"):
+		if Input.is_action_pressed("shift") and stamina > 2:
 			return "run_left"
 		else:
 			return "walk_left"
 	elif direction.y > 0:
-		if Input.is_action_pressed("shift"):
+		if Input.is_action_pressed("shift") and stamina > 2:
 			return "run_down"
 		else:
 			return "walk_down"
 	elif direction.y < 0:
-		if Input.is_action_pressed("shift"):
+		if Input.is_action_pressed("shift") and stamina > 2:
 			return "run_up"
 		else:
 			return "walk_up"
@@ -219,3 +227,9 @@ func start_attack(direction: String) -> void:
 	current_animation = get_attack_animation(direction)
 	anim.play(current_animation)
 	cooldown = 30 # Duration of attack in frames
+
+func on_health_decreased(hp :int) -> void:
+	health = max(0, health-hp)
+	
+func on_health_increased(hp :int) -> void:
+	health = min(100, health+hp)

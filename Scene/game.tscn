@@ -1,15 +1,32 @@
-[gd_scene load_steps=5 format=3 uid="uid://d33hbor7mho7w"]
+[gd_scene load_steps=15 format=3 uid="uid://d33hbor7mho7w"]
 
 [ext_resource type="PackedScene" uid="uid://bwxgociwfrmgs" path="res://Scene/level.tscn" id="1_ihqbn"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_itm58"]
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="2_fjvnk"]
 [ext_resource type="PackedScene" uid="uid://d1sg1vhh75em6" path="res://Scene/player.tscn" id="2_u53ci"]
 [ext_resource type="PackedScene" uid="uid://clptk7fjs4nuf" path="res://Scene/canvas_layer.tscn" id="3_l6sws"]
 [ext_resource type="PackedScene" uid="uid://b4gcfgja4mlug" path="res://Scene/artoriax.tscn" id="4_lrfxt"]
+[ext_resource type="Texture2D" uid="uid://b5xq6kquulabn" path="res://LifeBarMiniUnder.png" id="7_q1q06"]
+[ext_resource type="Texture2D" uid="uid://bcvhwwu3gh8xj" path="res://LifeBarMiniProgress.png" id="8_7y1gh"]
+[ext_resource type="Script" path="res://scripts/texture_progress_bar.gd" id="9_pib1f"]
+[ext_resource type="Texture2D" uid="uid://cwpttx8qdd7k4" path="res://OIP.jpg" id="10_xbftv"]
+[ext_resource type="Texture2D" uid="uid://c2jvylrhousoj" path="res://5.webp" id="11_6hal0"]
+[ext_resource type="Script" path="res://scripts/texture_progress_bar_2.gd" id="12_5pq7f"]
+[ext_resource type="Script" path="res://scripts/texture_progress_bar_3.gd" id="13_o2fim"]
+[ext_resource type="AudioStream" uid="uid://blmh8qhib2ns" path="res://16  Juno Reactor Vs. Don Davis - Navras.mp3" id="14_b7usj"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
+script = ExtResource("1_itm58")
+
+[node name="Game_Manager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_fjvnk")
+player_path = NodePath("../player")
+artoriax_path = NodePath("../Artoriax")
 
 [node name="Level" parent="." instance=ExtResource("1_ihqbn")]
-position = Vector2(3343, -284)
+position = Vector2(3121, -385)
 
 [node name="player" parent="." instance=ExtResource("2_u53ci")]
 y_sort_enabled = true
@@ -20,3 +37,45 @@ player_path = NodePath("../player")
 
 [node name="Artoriax" parent="." instance=ExtResource("4_lrfxt")]
 position = Vector2(-1338, 2348)
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer2"]
+offset_left = 777.0
+offset_top = 13.0
+offset_right = 1136.0
+offset_bottom = 48.0
+nine_patch_stretch = true
+texture_under = ExtResource("7_q1q06")
+texture_progress = ExtResource("8_7y1gh")
+script = ExtResource("9_pib1f")
+player_path = NodePath("../../player")
+
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="CanvasLayer2"]
+offset_left = 876.0
+offset_top = 60.0
+offset_right = 1131.0
+offset_bottom = 74.0
+nine_patch_stretch = true
+texture_under = ExtResource("10_xbftv")
+texture_progress = ExtResource("11_6hal0")
+script = ExtResource("12_5pq7f")
+player_path = NodePath("../../player")
+
+[node name="TextureProgressBar3" type="TextureProgressBar" parent="CanvasLayer2"]
+offset_left = 292.0
+offset_top = 592.0
+offset_right = 879.0
+offset_bottom = 617.0
+nine_patch_stretch = true
+texture_under = ExtResource("7_q1q06")
+texture_progress = ExtResource("8_7y1gh")
+script = ExtResource("13_o2fim")
+artoriax_path = NodePath("../../Artoriax")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_b7usj")
+volume_db = -21.55
+autoplay = true
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

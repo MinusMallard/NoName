@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+var health = 100
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var player: CharacterBody2D = $"../player"
 
