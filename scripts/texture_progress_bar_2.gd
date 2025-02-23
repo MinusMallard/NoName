@@ -7,5 +7,5 @@ func _ready() -> void:
 	value = player.stamina
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	value = player.stamina

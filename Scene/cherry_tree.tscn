@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://deb4ok6gbv64u"]
 
-[ext_resource type="Texture2D" uid="uid://b2o41oeicsrer" path="res://Assets/Golbanc Homestead/Flora/Temperate Trees v2 size-2 B red.png" id="1_t5f5i"]
+[ext_resource type="Texture2D" uid="uid://cabgw1rutih2s" path="res://Assets/Golbanc Homestead/Flora/Temperate Trees v2 size-2 B red.png" id="1_t5f5i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ojbkc"]
 texture = ExtResource("1_t5f5i")
