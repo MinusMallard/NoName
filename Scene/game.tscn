@@ -1,30 +1,31 @@
 [gd_scene load_steps=15 format=3 uid="uid://d33hbor7mho7w"]
 
 [ext_resource type="PackedScene" uid="uid://bwxgociwfrmgs" path="res://Scene/level.tscn" id="1_ihqbn"]
-[ext_resource type="Script" path="res://scripts/game.gd" id="1_itm58"]
-[ext_resource type="Script" path="res://scripts/game_manager.gd" id="2_fjvnk"]
+[ext_resource type="Script" path="res://Scripts/game.gd" id="1_itm58"]
+[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="2_fjvnk"]
 [ext_resource type="PackedScene" uid="uid://d1sg1vhh75em6" path="res://Scene/player.tscn" id="2_u53ci"]
 [ext_resource type="PackedScene" uid="uid://clptk7fjs4nuf" path="res://Scene/canvas_layer.tscn" id="3_l6sws"]
 [ext_resource type="PackedScene" uid="uid://b4gcfgja4mlug" path="res://Scene/artoriax.tscn" id="4_lrfxt"]
 [ext_resource type="Texture2D" uid="uid://b5xq6kquulabn" path="res://Assets/LifeBarMiniUnder.png" id="7_q1q06"]
 [ext_resource type="Texture2D" uid="uid://bcvhwwu3gh8xj" path="res://Assets/LifeBarMiniProgress.png" id="8_7y1gh"]
-[ext_resource type="Script" path="res://scripts/texture_progress_bar.gd" id="9_pib1f"]
+[ext_resource type="Script" path="res://Scripts/texture_progress_bar.gd" id="9_pib1f"]
 [ext_resource type="Texture2D" uid="uid://cwpttx8qdd7k4" path="res://Assets/OIP.jpg" id="10_xbftv"]
 [ext_resource type="Texture2D" uid="uid://c2jvylrhousoj" path="res://Assets/5.webp" id="11_6hal0"]
-[ext_resource type="Script" path="res://scripts/texture_progress_bar_2.gd" id="12_5pq7f"]
-[ext_resource type="Script" path="res://scripts/texture_progress_bar_3.gd" id="13_o2fim"]
+[ext_resource type="Script" path="res://Scripts/texture_progress_bar_2.gd" id="12_5pq7f"]
+[ext_resource type="Script" path="res://Scripts/texture_progress_bar_3.gd" id="13_o2fim"]
 [ext_resource type="AudioStream" uid="uid://blmh8qhib2ns" path="res://Assets/16  Juno Reactor Vs. Don Davis - Navras.mp3" id="14_b7usj"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_itm58")
 
-[node name="Game_Manager" type="Node" parent="."]
+[node name="GameManager" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_fjvnk")
 
 [node name="Level" parent="." instance=ExtResource("1_ihqbn")]
 position = Vector2(3121, -385)
+script = null
 
 [node name="player" parent="." instance=ExtResource("2_u53ci")]
 y_sort_enabled = true

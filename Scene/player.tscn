@@ -2936,7 +2936,7 @@ animations = [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_58mut")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack1_down",
 "speed": 120.0
 }, {
@@ -2986,7 +2986,7 @@ animations = [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_4n3r5")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack1_left",
 "speed": 120.0
 }, {
@@ -3036,7 +3036,7 @@ animations = [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_2a2gg")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack1_left_down",
 "speed": 120.0
 }, {
@@ -3086,7 +3086,7 @@ animations = [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_4y81p")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack1_left_up",
 "speed": 120.0
 }, {
@@ -3136,7 +3136,7 @@ animations = [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_lceyu")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack1_right",
 "speed": 120.0
 }, {
@@ -3186,7 +3186,7 @@ animations = [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_qfg1p")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack1_right_down",
 "speed": 120.0
 }, {
@@ -3236,7 +3236,7 @@ animations = [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_w5erh")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack1_right_up",
 "speed": 120.0
 }, {
@@ -3286,7 +3286,7 @@ animations = [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_bjxw3")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack1_up",
 "speed": 120.0
 }, {
@@ -3333,12 +3333,12 @@ animations = [{
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_qp3cb")
 }, {
-"duration": 2.0,
+"duration": 4.0,
 "texture": SubResource("AtlasTexture_60uw6")
 }],
-"loop": true,
+"loop": false,
 "name": &"die_down",
-"speed": 120.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 2.0,
@@ -3383,12 +3383,12 @@ animations = [{
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_qqkpd")
 }, {
-"duration": 2.0,
+"duration": 4.0,
 "texture": SubResource("AtlasTexture_twuen")
 }],
-"loop": true,
+"loop": false,
 "name": &"die_left",
-"speed": 120.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 2.0,
@@ -3433,12 +3433,12 @@ animations = [{
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_pmm21")
 }, {
-"duration": 2.0,
+"duration": 4.0,
 "texture": SubResource("AtlasTexture_x8rvh")
 }],
-"loop": true,
+"loop": false,
 "name": &"die_left_down",
-"speed": 120.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 2.0,
@@ -3483,12 +3483,12 @@ animations = [{
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_af35c")
 }, {
-"duration": 2.0,
+"duration": 4.0,
 "texture": SubResource("AtlasTexture_2fi11")
 }],
-"loop": true,
+"loop": false,
 "name": &"die_left_up",
-"speed": 120.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 2.0,
@@ -3533,12 +3533,12 @@ animations = [{
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_6p7sr")
 }, {
-"duration": 2.0,
+"duration": 4.0,
 "texture": SubResource("AtlasTexture_sdmwp")
 }],
-"loop": true,
+"loop": false,
 "name": &"die_right",
-"speed": 120.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 2.0,
@@ -3583,12 +3583,12 @@ animations = [{
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_4wx2o")
 }, {
-"duration": 2.0,
+"duration": 4.0,
 "texture": SubResource("AtlasTexture_8f6m0")
 }],
-"loop": true,
+"loop": false,
 "name": &"die_right_down",
-"speed": 120.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 2.0,
@@ -3633,12 +3633,12 @@ animations = [{
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_ws30f")
 }, {
-"duration": 2.0,
+"duration": 4.0,
 "texture": SubResource("AtlasTexture_ruv5r")
 }],
-"loop": true,
+"loop": false,
 "name": &"die_right_up",
-"speed": 120.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 2.0,
@@ -3683,12 +3683,12 @@ animations = [{
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_cl0tw")
 }, {
-"duration": 2.0,
+"duration": 4.0,
 "texture": SubResource("AtlasTexture_tjsxj")
 }],
-"loop": true,
+"loop": false,
 "name": &"die_up",
-"speed": 120.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 2.0,
@@ -4136,7 +4136,7 @@ animations = [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_hrere")
 }],
-"loop": true,
+"loop": false,
 "name": &"roll_down",
 "speed": 120.0
 }, {
@@ -4186,7 +4186,7 @@ animations = [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_xv127")
 }],
-"loop": true,
+"loop": false,
 "name": &"roll_left",
 "speed": 120.0
 }, {
@@ -4236,7 +4236,7 @@ animations = [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_3pvnl")
 }],
-"loop": true,
+"loop": false,
 "name": &"roll_left_down",
 "speed": 120.0
 }, {
@@ -4286,7 +4286,7 @@ animations = [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_dm8l0")
 }],
-"loop": true,
+"loop": false,
 "name": &"roll_left_up",
 "speed": 120.0
 }, {
@@ -4336,7 +4336,7 @@ animations = [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_ha7wp")
 }],
-"loop": true,
+"loop": false,
 "name": &"roll_right",
 "speed": 120.0
 }, {
@@ -4386,7 +4386,7 @@ animations = [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_qt31d")
 }],
-"loop": true,
+"loop": false,
 "name": &"roll_right_down",
 "speed": 120.0
 }, {
@@ -4436,7 +4436,7 @@ animations = [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_rh5f3")
 }],
-"loop": true,
+"loop": false,
 "name": &"roll_right_up",
 "speed": 120.0
 }, {
@@ -4486,7 +4486,7 @@ animations = [{
 "duration": 4.0,
 "texture": SubResource("AtlasTexture_dok8b")
 }],
-"loop": true,
+"loop": false,
 "name": &"roll_up",
 "speed": 120.0
 }, {
@@ -5302,8 +5302,7 @@ script = ExtResource("1_cudne")
 position = Vector2(6, 7)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_wvlyi")
-animation = &"die_down"
-autoplay = "die_right_up"
+animation = &"roll_right"
 offset = Vector2(-5, -30)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -5343,3 +5342,7 @@ polygon = PackedVector2Array(-87, -52, -69, -47, -49, -41, -37, -38, -29, -46, -
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="attack_area"]
 polygon = PackedVector2Array(-85, -14, -70, -20, -56, -23, -42, -27, -33, -28, -27, -33, -18, -41, -6, -54, 2, -61, 6, -66, 12, -74, 1, -74, -17, -71, -30, -69, -42, -65, -56, -58, -67, -48, -75, -39, -86, -26)
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="attack_area" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="attack_area" to="." method="_on_attack_area_body_exited"]

@@ -1,235 +1,165 @@
 extends CharacterBody2D
 
-@onready var anim = $AnimatedSprite2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var game_manager: Node = %GameManager
+@onready var artoriax: CharacterBody2D = $"../Artoriax"
+
+# Player state definitions.
+enum State { IDLE, WALK, RUN, ATTACK, ROLL, DEATH }
+const WALK_SPEED = 150.0
+const RUN_SPEED = 250.0
+const ROLL_SPEED = 300.0
+
+# Stamina settings.
+var stamina: float = 100.0
+const RUN_STAMINA_COST : float = 0.5
+const MAX_STAMINA: float = 100.0
+const ROLL_STAMINA_COST: float = 20.0
+const ATTACK_STAMINA_COST: float = 20.0
+const STAMINA_REGEN: float = 10.0
+
 var health = 100
-var stamina = 100
+var current_state: State = State.IDLE
+var input_direction: Vector2 = Vector2.ZERO
+var last_direction: String = "_right"
 
-# Movement parameters
-const speed = 100
-const roll_speed = 300
-const run_speed = 300
-var cooldown = 0
+var is_invincible = false
+var can_damage_artoriax = false
 
-# State tracking
-var rolling = false
-var roll_vector = Vector2.ZERO
-var jump_buffer = []  # Stack to store jump timestamps
-var attacking = false
-var attack_buffer = []
-var current_animation = ""  # Current playing animation (used for roll)
-var current_idle = "idle_right"   # Default idle animation
+# Define an attack range within which damage will register.
+const ATTACK_RANGE = 100.0
 
-func _ready() -> void:
-	Engine.max_fps = 60
+# ––– PHYSICS PROCESS –––
+func _physics_process(delta: float) -> void:
+	if health <= 0:
+		if current_state != State.DEATH:
+			current_state = State.DEATH
+			sprite.play("die" + get_direction_name())
+		velocity = Vector2.ZERO
+		return
 
-func _physics_process(_delta):
-	var input_dir = get_input_direction()  # Get raw input vector
-	var move_dir = Vector2.ZERO
+	# Regenerate stamina.
+	if stamina < MAX_STAMINA and not Input.is_action_pressed("shift"):
+		stamina = min(stamina + STAMINA_REGEN * delta, MAX_STAMINA)
 	
-	
-	# If we're not in a cooldown (roll in progress)
-	if cooldown <= 0:
-		rolling = false
-		attacking = false
-		
-		var current_time = Time.get_ticks_msec()
-		while jump_buffer.size() > 0 and current_time-jump_buffer[0] >= 400:
-			var x = jump_buffer.pop_front()
-			print("deleted")
-			print(x)
-		
-		if (Input.is_action_just_pressed("attack") or attack_buffer.size() > 0) and stamina >= 33:
-			stamina = stamina-25
-			move_dir = Vector2.ZERO
-			attack_buffer.pop_back()
-			start_attack(current_idle)
-		# If roll is triggered and there is directional input, start rolling
-		elif ((Input.is_action_just_pressed("ui_select") or jump_buffer.size() > 0) and input_dir != Vector2.ZERO) and stamina >= 33:
-			stamina = stamina-25
-			jump_buffer.pop_back()
-			start_roll(input_dir)
-			move_dir = roll_vector
+	# While attacking or rolling, ignore new movement input.
+	if current_state in [State.ATTACK, State.ROLL]:
+		if current_state == State.ROLL:
+			velocity = input_direction * ROLL_SPEED
 		else:
-			# Normal walking movement
-			if !Input.is_action_pressed("shift"):
-				stamina = min(100, stamina+1)
-			
-			move_dir = input_dir
-			if move_dir != Vector2.ZERO:
-				var walk_anim = get_walk_animation(move_dir)
-				current_idle = get_idle_animation(move_dir)
-				if anim.animation != walk_anim:
-					anim.play(walk_anim)
-			else:
-				# Not moving: play idle animation (from last movement)
-				anim.play(current_idle)
+			velocity = Vector2.ZERO
 	else:
-		# During roll cooldown, continue moving in the roll direction
-		cooldown -= 1
-		move_dir = roll_vector
-		anim.play(current_animation)
-		# When cooldown expires, rolling is finished
-		if cooldown <= 0:
-			rolling = false
-			attacking = false
-			
-	if Input.is_action_just_pressed("ui_select"):
-		jump_buffer.append(Time.get_ticks_msec())
-		print(jump_buffer[0])
+		process_input()
 	
-	# Set the velocity based on movement mode (roll or normal)
-	var current_speed = 0
+	move_and_slide()
+
+# ––– PROCESS (Animation Update) –––
+func _process(_delta: float) -> void:
+	if current_state == State.ATTACK and can_damage_artoriax:
+		game_manager.on_artoriax_hit()
+		can_damage_artoriax = false
+	update_animation()
+
+# ––– INPUT HANDLING –––
+func process_input() -> void:
+	# Read and normalize movement input.
+	input_direction = Vector2(
+		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
+		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+	)
+	if input_direction.length() > 0:
+		input_direction = input_direction.normalized()
+		last_direction = get_direction_name()
 	
-	if rolling:
-		current_speed = roll_speed
+	# Set movement state.
+	if Input.is_action_pressed("shift") and stamina > 0:
+		stamina -= RUN_STAMINA_COST
+		velocity = input_direction * RUN_SPEED
+		current_state = State.RUN
+	elif input_direction.length() > 0:
+		velocity = input_direction * WALK_SPEED
+		current_state = State.WALK
 	else:
-		current_speed = speed
-	
-		
-	if Input.is_action_pressed("shift") and stamina > 2:
-		stamina = max(0, stamina-0.2)
-		current_speed = run_speed
-	else:
-		current_speed = speed  # Ensure the player slows down when stamina runs out
-		
-	velocity = move_dir.normalized() * current_speed
-	
-	if (!attacking):
-		move_and_slide()
+		velocity = Vector2.ZERO
+		current_state = State.IDLE
 
-# Returns a Vector2 based on input actions.
-func get_input_direction() -> Vector2:
-	var dir = Vector2.ZERO
-	if Input.is_action_pressed("ui_right"):
-		dir.x += 1
-	if Input.is_action_pressed("ui_left"):
-		dir.x -= 1
-	if Input.is_action_pressed("ui_down"):
-		dir.y += 1
-	if Input.is_action_pressed("ui_up"):
-		dir.y -= 1
-	return dir
+	# Roll action.
+	if Input.is_action_just_pressed("roll") and stamina > 0:
+		stamina -= ROLL_STAMINA_COST
+		current_state = State.ROLL
+		sprite.play("roll" + last_direction)
+		is_invincible = true
+		return
 
-# Returns the walk animation based on the movement direction.
-func get_walk_animation(direction: Vector2) -> String:
-	# Diagonals first
-	if direction.x > 0 and direction.y > 0:
-		if Input.is_action_pressed("shift") and stamina > 2:
-			return "run_right_down"
-		else:
-			return "walk_right_down"
-	elif direction.x > 0 and direction.y < 0:
-		if Input.is_action_pressed("shift") and stamina > 2:
-			return "run_right_up"
-		else:
-			return "walk_right_up"
-	elif direction.x < 0 and direction.y > 0:
-		if Input.is_action_pressed("shift") and stamina > 2:
-			return "run_left_down"
-		else: 
-			return "walk_left_down"
-	elif direction.x < 0 and direction.y < 0:
-		if Input.is_action_pressed("shift") and stamina > 2:
-			return "run_left_up"
-		else:
-			return "walk_left_up"
-	elif direction.x > 0:
-		if Input.is_action_pressed("shift") and stamina > 2:
-			return "run_right"
-		else:
-			return "walk_right"
-	elif direction.x < 0:
-		if Input.is_action_pressed("shift") and stamina > 2:
-			return "run_left"
-		else:
-			return "walk_left"
-	elif direction.y > 0:
-		if Input.is_action_pressed("shift") and stamina > 2:
-			return "run_down"
-		else:
-			return "walk_down"
-	elif direction.y < 0:
-		if Input.is_action_pressed("shift") and stamina > 2:
-			return "run_up"
-		else:
-			return "walk_up"
-	return "idle"
+	# Attack action.
+	if Input.is_action_just_pressed("attack") and stamina > 0:
+		stamina -= ATTACK_STAMINA_COST
+		current_state = State.ATTACK
+		sprite.play("attack1" + last_direction)
+		return
 
-# Returns the idle animation based on the last movement direction.
-func get_idle_animation(direction: Vector2) -> String:
-	if direction.x > 0 and direction.y > 0:
-		return "idle_right_down"
-	elif direction.x > 0 and direction.y < 0:
-		return "idle_right_up"
-	elif direction.x < 0 and direction.y > 0:
-		return "idle_left_down"
-	elif direction.x < 0 and direction.y < 0:
-		return "idle_left_up"
-	elif direction.x > 0:
-		return "idle_right"
-	elif direction.x < 0:
-		return "idle_left"
-	elif direction.y > 0:
-		return "idle_down"
-	elif direction.y < 0:
-		return "idle_up"
-	return "idle_up"
-	
+# ––– ANIMATION UPDATE –––
+func update_animation() -> void:
+	# If dead, let the death animation play uninterrupted.
+	if health <= 0:
+		return
 
-# Returns the roll animation name based on the roll direction.
-func get_roll_animation(direction: Vector2) -> String:
-	if direction.x > 0 and direction.y > 0:
-		return "roll_right_down"
-	elif direction.x > 0 and direction.y < 0:
-		return "roll_right_up"
-	elif direction.x < 0 and direction.y > 0:
-		return "roll_left_down"
-	elif direction.x < 0 and direction.y < 0:
-		return "roll_left_up"
-	elif direction.x > 0:
-		return "roll_right"
-	elif direction.x < 0:
-		return "roll_left"
-	elif direction.y > 0:
-		return "roll_down"
-	else:
-		return "roll_up"
-	  # fallback in case no direction is found
-func get_attack_animation(direction: String) -> String:
-	if direction == "idle_right_down":
-		return "attack1_right_down"
-	elif direction == "idle_right_up":
-		return "attack1_right_up"
-	elif direction == "idle_left_down":
-		return "attack1_left_down"
-	elif direction == "idle_left_up":
-		return "attack1_left_up"
-	elif direction == "idle_right":
-		return "attack1_right"
-	elif direction == "idle_left":
-		return "attack1_left"
-	elif direction == "idle_down":
-		return "attack1_down"
-	else:
-		return "attack1_up"
+	# When attacking or rolling, do not change the animation.
+	if current_state in [State.ATTACK, State.ROLL]:
+		return
 
-# Initializes the roll action.
-func start_roll(direction: Vector2) -> void:
-	rolling = true
-	roll_vector = direction.normalized()
-	current_animation = get_roll_animation(direction)
-	current_idle = get_idle_animation(direction)
-	anim.play(current_animation)
-	cooldown = 30 # Duration of the roll in frames
-	
-func start_attack(direction: String) -> void:
-	attacking = true
-	current_animation = get_attack_animation(direction)
-	anim.play(current_animation)
-	cooldown = 30 # Duration of attack in frames
+	var anim_name: String = ""
+	match current_state:
+		State.IDLE:
+			anim_name = "idle" + last_direction
+		State.WALK:
+			anim_name = "walk" + last_direction
+		State.RUN:
+			anim_name = "run" + last_direction
+		_:
+			anim_name = "idle" + last_direction
 
-func on_health_decreased(hp :int) -> void:
-	health = max(0, health-hp)
-	
-func on_health_increased(hp :int) -> void:
-	health = min(100, health+hp)
+	if sprite.animation != anim_name:
+		sprite.play(anim_name)
+
+# ––– DIRECTION HELPER –––
+func get_direction_name() -> String:
+	if input_direction.length() < 0.1:
+		return last_direction
+	var angle: float = input_direction.angle()
+	if angle >= -PI/8 and angle < PI/8:
+		return "_right"
+	elif angle >= PI/8 and angle < 3 * PI/8:
+		return "_right_down"
+	elif angle >= 3 * PI/8 and angle < 5 * PI/8:
+		return "_down"
+	elif angle >= 5 * PI/8 and angle < 7 * PI/8:
+		return "_left_down"
+	elif angle >= 7 * PI/8 or angle < -7 * PI/8:
+		return "_left"
+	elif angle >= -7 * PI/8 and angle < -5 * PI/8:
+		return "_left_up"
+	elif angle >= -5 * PI/8 and angle < -3 * PI/8:
+		return "_up"
+	elif angle >= -3 * PI/8 and angle < -PI/8:
+		return "_right_up"
+	return last_direction
+
+# ––– ANIMATION FINISH CALLBACK –––
+func _on_animated_sprite_2d_animation_finished() -> void:
+	match current_state:
+		State.ATTACK, State.ROLL:
+			if current_state == State.ROLL:
+				is_invincible = false
+			current_state = State.IDLE
+		State.DEATH:
+			pass
+
+# ––– ATTACK HITBOX SIGNALS –––
+func _on_attack_area_body_entered(body: Node2D) -> void:
+	if body == artoriax:
+		can_damage_artoriax = true
+
+func _on_attack_area_body_exited(body: Node2D) -> void:
+	if body == artoriax:
+		can_damage_artoriax = false
